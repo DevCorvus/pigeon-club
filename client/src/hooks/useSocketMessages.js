@@ -45,8 +45,9 @@ const useSocketMessages = () => {
 
   const onTypingMessage = (userTyping) => {
     setTyping(prevTyping => {
-      const typings = prevTyping.filter(prevUserTyping => prevUserTyping.id !== userTyping.id);
-      return [...typings, userTyping];
+      const alreadyTyping = prevTyping.find(prevUserTyping => prevUserTyping.id === userTyping.id);
+      if (alreadyTyping) return prevTyping;
+      return [...prevTyping, userTyping];
     });
     setScrollDown(prevState => !prevState);
   };
