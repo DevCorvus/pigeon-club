@@ -47,7 +47,7 @@ export default function About() {
               <p>As for the client, React with Redux (Toolkit) and TailwindCSS was the base, as well as a small cocktail of libraries that I decided to implement in some redundant sections and thus experiment a little with them.</p>
               <p>Broadly speaking, it has been a very interesting project to carry out and from which I have learned a lot of things as well as reinforced previous knowledge and I am interested in continuing to explore the world of Web Sockets or other alternatives in the future.</p>
               <p>I hope this is a project to your liking, user, although it should be clarified that its purpose is not intended for the general public, only as a technical test carried out in order to learn and develop my skills.</p>
-              <p>If you want to contact me in relation to this project or other reasons, I leave the following means of contact at your disposal: <a className="text-indigo-400 hover:text-indigo-500 focus:text-indigo-500 transition" href="https://devbanner.herokuapp.com/contact" target="_blank" rel="noopener noreferrer">DevBanner's Contact Page (My personal Blog)</a>.</p>
+              <p>If you want to contact me in relation to this project or other reasons, I leave the following means of contact at your disposal: <a className="text-indigo-400 hover:text-indigo-500 focus:text-indigo-500 transition" href="https://www.devcorvus.com/contact" target="_blank" rel="noopener noreferrer">DevCorvus Contact page (My personal website)</a>.</p>
               <p>Thank you for reading! .) ♥</p>
             </section>
             <button onClick={handleClose} className="btn-primary w-full mt-auto" type="button">
