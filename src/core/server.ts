@@ -7,7 +7,7 @@ import { getEnv } from '../config/env';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
-import { checkEnvConfig } from '../middlewares/checkEnvConfig';
+import { checkMissingEnv } from '../middlewares/checkMissingEnv';
 import { redirectOverHttps } from '../middlewares/redirectOverHttps';
 
 import { apiRoutes } from '../routes/api.routes';
@@ -33,7 +33,7 @@ export function initializeServer() {
     app.enable('trust proxy');
     app.use(redirectOverHttps);
     app.use(express.static(pathJoin(__dirname, '../../client/build')));
-    app.use(checkEnvConfig);
+    app.use(checkMissingEnv(Object.keys(getEnv())));
   } else {
     app.use(morgan('dev'));
   }
