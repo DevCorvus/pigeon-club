@@ -8,4 +8,4 @@ import initializeExpressSocketServer from './config/server';
 
 createConnection(databaseConfig())
   .then(initializeExpressSocketServer)
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));

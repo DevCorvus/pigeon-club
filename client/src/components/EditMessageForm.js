@@ -19,10 +19,12 @@ export default function EditMessageForm({ id, content: prevContent, setEdit }) {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label hidden htmlFor="content">Edit</label>
+        <label hidden htmlFor="content">
+          Edit
+        </label>
         <TextareaAutosize
           className="w-full p-2 border border-indigo-400 rounded-md outline-none resize-none"
-          onChange={e => setContent(e.target.value)}
+          onChange={(e) => setContent(e.target.value)}
           value={content}
           name="content"
           id="content"
@@ -31,10 +33,17 @@ export default function EditMessageForm({ id, content: prevContent, setEdit }) {
         />
       </div>
       <div className="flex gap-2 text-indigo-300">
-        <button className="hover:text-indigo-400 focus:text-indigo-400 transition" onClick={() => setEdit(false)} type="button">
+        <button
+          className="hover:text-indigo-400 focus:text-indigo-400 transition"
+          onClick={() => setEdit(false)}
+          type="button"
+        >
           Cancel
         </button>
-        <button className="hover:text-indigo-400 focus:text-indigo-400 transition" type="submit">
+        <button
+          className="hover:text-indigo-400 focus:text-indigo-400 transition"
+          type="submit"
+        >
           Save
         </button>
       </div>

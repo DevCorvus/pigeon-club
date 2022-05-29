@@ -12,27 +12,27 @@ const useSocketMessages = () => {
   // Handlers
   const onMessages = ({ messages, hasMore }) => {
     setHasMore(hasMore);
-    setMessages(prevMessages => [...messages, ...prevMessages]);
+    setMessages((prevMessages) => [...messages, ...prevMessages]);
     if (firstMessages.current) {
-      setScrollDown(prevState => !prevState);
+      setScrollDown((prevState) => !prevState);
       firstMessages.current = false;
-    };
+    }
   };
 
   const onShowMessage = (message) => {
-    setMessages(prevMessages => [...prevMessages, message]);
-    setScrollDown(prevState => !prevState);
+    setMessages((prevMessages) => [...prevMessages, message]);
+    setScrollDown((prevState) => !prevState);
   };
 
   const onDeleteMessage = (id) => {
-    setMessages(prevMessages => {
-      return prevMessages.filter(message => message.id !== id);
+    setMessages((prevMessages) => {
+      return prevMessages.filter((message) => message.id !== id);
     });
   };
-  
+
   const onUpdateMessage = ({ id, content, edited, updatedAt }) => {
-    setMessages(prevMessages => {
-      return prevMessages.map(message => {
+    setMessages((prevMessages) => {
+      return prevMessages.map((message) => {
         if (message.id === id) {
           message.content = content;
           message.edited = edited;
@@ -44,16 +44,20 @@ const useSocketMessages = () => {
   };
 
   const onTypingMessage = (userTyping) => {
-    setTyping(prevTyping => {
-      const alreadyTyping = prevTyping.find(prevUserTyping => prevUserTyping.id === userTyping.id);
+    setTyping((prevTyping) => {
+      const alreadyTyping = prevTyping.find(
+        (prevUserTyping) => prevUserTyping.id === userTyping.id
+      );
       if (alreadyTyping) return prevTyping;
       return [...prevTyping, userTyping];
     });
-    setScrollDown(prevState => !prevState);
+    setScrollDown((prevState) => !prevState);
   };
 
   const onUntypingMessage = (userId) => {
-    setTyping(prevTyping => prevTyping.filter(userTyping => userTyping.id !== userId));
+    setTyping((prevTyping) =>
+      prevTyping.filter((userTyping) => userTyping.id !== userId)
+    );
   };
 
   // Listeners

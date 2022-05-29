@@ -12,7 +12,7 @@ export default function CreateMessageForm({ setScrollDown }) {
   const sendMessage = () => {
     socket.emit('message:create', content);
     setContent('');
-    setFocus(prevFocus => !prevFocus);
+    setFocus((prevFocus) => !prevFocus);
   };
 
   const handleSubmit = (e) => {
@@ -24,12 +24,12 @@ export default function CreateMessageForm({ setScrollDown }) {
     setTimeout(() => {
       if (!e.shiftKey && e.key === 'Enter') {
         sendMessage();
-      };
+      }
     }, 10);
   };
 
   useEffect(() => {
-    setScrollDown(prevState => !prevState);
+    setScrollDown((prevState) => !prevState);
   }, [content, setScrollDown]);
 
   useEffect(() => {
@@ -43,12 +43,14 @@ export default function CreateMessageForm({ setScrollDown }) {
   return (
     <form className="w-full mt-2" onSubmit={handleSubmit}>
       <div className="flex flex-col gap-1">
-        <label className="text-gray-400" htmlFor="content">Message</label>
+        <label className="text-gray-400" htmlFor="content">
+          Message
+        </label>
         <div className="flex gap-4">
           <TextareaAutosize
             ref={textareaRef}
             className="w-full p-2 border border-indigo-400 rounded-md outline-none resize-none"
-            onChange={e => setContent(e.target.value)}
+            onChange={(e) => setContent(e.target.value)}
             onKeyDown={handleKeyDown}
             value={content}
             name="content"

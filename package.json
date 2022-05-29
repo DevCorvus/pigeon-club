@@ -6,6 +6,7 @@
   "version": "1.0.0",
   "main": "src/index.ts",
   "scripts": {
+    "format": "prettier --write .",
     "dev:server": "nodemon ./src/index.ts --ignore ./client",
     "dev:client": "npm run dev --prefix client",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
@@ -42,6 +43,7 @@
     "concurrently": "^6.5.1",
     "dotenv": "^8.6.0",
     "nodemon": "^2.0.15",
+    "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
     "sqlite3": "^5.0.8",
     "ts-node": "^10.8.0",

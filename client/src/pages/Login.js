@@ -8,7 +8,7 @@ import Input from '../components/Input';
 export default function Login() {
   const { handleSubmit, register } = useForm();
   const onSubmit = useOnSubmit({ route: 'login' });
-  
+
   return (
     <Box>
       <header className="text-3xl mb-4">
@@ -25,7 +25,15 @@ export default function Login() {
           Login
         </button>
       </form>
-      <p className="mt-2">You do not have an account? <Link to="/register" className="text-indigo-400 hover:text-indigo-500 focus:text-indigo-500">Sign Up</Link></p>
+      <p className="mt-2">
+        You do not have an account?{' '}
+        <Link
+          to="/register"
+          className="text-indigo-400 hover:text-indigo-500 focus:text-indigo-500"
+        >
+          Sign Up
+        </Link>
+      </p>
     </Box>
   );
 }

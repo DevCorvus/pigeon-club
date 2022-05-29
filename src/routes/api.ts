@@ -3,13 +3,14 @@ import controller from '../controllers/user.controller';
 import {
   nicknameValidation,
   usernameValidation,
-  passwordValidation
+  passwordValidation,
 } from '../middlewares/validationChains';
 import { rejectOnValidationErrors } from '../middlewares/rejectOnValidationErrors';
 
 const router = Router();
 
-router.post('/register',
+router.post(
+  '/register',
   [
     nicknameValidation,
     usernameValidation,
@@ -19,12 +20,9 @@ router.post('/register',
   controller.register
 );
 
-router.post('/login',
-  [
-    usernameValidation,
-    passwordValidation,
-    rejectOnValidationErrors,
-  ],
+router.post(
+  '/login',
+  [usernameValidation, passwordValidation, rejectOnValidationErrors],
   controller.login
 );
 

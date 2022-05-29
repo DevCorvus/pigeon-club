@@ -12,11 +12,11 @@ const userSlice = createSlice({
     setNickname: (state, action) => {
       state.nickname = action.payload;
     },
-    resetUser: () => initialState
-  }
+    resetUser: () => initialState,
+  },
 });
 
 export const { setUser, setNickname, resetUser } = userSlice.actions;
-export const getUser = state => state.user;
+export const getUser = (state) => state.user;
 
 export default userSlice.reducer;

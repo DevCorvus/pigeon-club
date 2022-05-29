@@ -9,20 +9,22 @@ const useOnSubmit = ({ route = '' }) => {
 
   const onSubmit = async (data) => {
     try {
-      const { data: { token } } = await axios.post(`/api/${route}`, data);
+      const {
+        data: { token },
+      } = await axios.post(`/api/${route}`, data);
 
       dispatch(setToken(token));
       Cookies.set('token', token, { expires: 7 });
 
       if (route === 'register') toast.success('Register successfull');
-
-    } catch(err) {
-      if (err.response && err.response.data) return toast.error(err.response.data);
+    } catch (err) {
+      if (err.response && err.response.data)
+        return toast.error(err.response.data);
       toast.error('Unexpected error');
     }
   };
 
-  return onSubmit; 
-}
+  return onSubmit;
+};
 
 export default useOnSubmit;

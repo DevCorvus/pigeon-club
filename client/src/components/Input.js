@@ -1,6 +1,12 @@
 import React from 'react';
 
-export default function Input({ hook:{ register, errors }, name, type = 'text', label = '', children }) {
+export default function Input({
+  hook: { register, errors },
+  name,
+  type = 'text',
+  label = '',
+  children,
+}) {
   const capitalize = (text) => {
     const textArray = text.split('');
     textArray[0] = textArray[0].toUpperCase();
@@ -17,7 +23,11 @@ export default function Input({ hook:{ register, errors }, name, type = 'text', 
         placeholder={children}
       />
       {errors && (
-        <p className="text-red-400 text-sm">{errors[name]?.message && name === 'passwordConfirmation' ? 'Passwords does not match' : errors[name]?.message}</p>
+        <p className="text-red-400 text-sm">
+          {errors[name]?.message && name === 'passwordConfirmation'
+            ? 'Passwords does not match'
+            : errors[name]?.message}
+        </p>
       )}
     </div>
   );

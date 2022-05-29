@@ -15,20 +15,29 @@ export default function (io: WebSocketServer, socket: Socket) {
   const onNickname = async (nickname: string) => {
     try {
       const user = await userRepository.findOne(userId);
-      if (!user) return socket.emit('notification', { type: 'error', msg: 'User not found' });
+      if (!user)
+        return socket.emit('notification', {
+          type: 'error',
+          msg: 'User not found',
+        });
 
       user.nickname = nickname;
       await userRepository.save(user);
       socket.data.user.nickname = nickname;
-      
-      socket.emit('nickname', nickname);
-      socket.emit('notification', { type: 'success', msg: 'Nickname updated successfully' });
 
-    } catch(err) {
-      socket.emit('notification', { type: 'error', msg: 'Invalid new Nickname' });
+      socket.emit('nickname', nickname);
+      socket.emit('notification', {
+        type: 'success',
+        msg: 'Nickname updated successfully',
+      });
+    } catch (err) {
+      socket.emit('notification', {
+        type: 'error',
+        msg: 'Invalid new Nickname',
+      });
     }
   };
- 
+
   // Listeners
   socket.on('user', onUser);
   socket.on('nickname', onNickname);

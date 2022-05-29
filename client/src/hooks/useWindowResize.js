@@ -11,12 +11,12 @@ const useWindowResize = () => {
       setSize({
         width: window.innerWidth,
         height: window.innerHeight,
-      })
+      });
     };
     window.addEventListener('resize', resizeListener);
     return () => {
       window.removeEventListener('resize', resizeListener);
-    }
+    };
   }, []);
 
   return size;

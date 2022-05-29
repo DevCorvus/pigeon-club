@@ -7,11 +7,11 @@ const tokenSlice = createSlice({
   initialState,
   reducers: {
     setToken: (_, action) => action.payload,
-    resetToken: () => initialState
-  }
+    resetToken: () => initialState,
+  },
 });
 
 export const { setToken, resetToken } = tokenSlice.actions;
-export const getToken = state => state.token;
+export const getToken = (state) => state.token;
 
 export default tokenSlice.reducer;

@@ -28,8 +28,8 @@ const useSocketConnection = () => {
               setSocketConnection(null);
               setSocket(false);
               return setError(true);
-            };
-            setAttempts(prevNumber => prevNumber + 1)
+            }
+            setAttempts((prevNumber) => prevNumber + 1);
           }
         }, 1000);
       } else {

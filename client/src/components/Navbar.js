@@ -21,10 +21,20 @@ export default function Navbar() {
           ) : (
             <>
               <li>
-                <Link className="focus:text-indigo-50 hover:text-indigo-50 transition" to="login">Login</Link>
+                <Link
+                  className="focus:text-indigo-50 hover:text-indigo-50 transition"
+                  to="login"
+                >
+                  Login
+                </Link>
               </li>
               <li>
-                <Link className="focus:text-indigo-50 hover:text-indigo-50 transition" to="register">Register</Link>
+                <Link
+                  className="focus:text-indigo-50 hover:text-indigo-50 transition"
+                  to="register"
+                >
+                  Register
+                </Link>
               </li>
             </>
           )}

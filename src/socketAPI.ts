@@ -6,15 +6,23 @@ import messageHandler from './handlers/message';
 const socketAPI = (io: WebSocketServer) => {
   const onConnection = (socket: Socket) => {
     console.log('Socket connection:', socket.id);
-    socket.broadcast.emit('notification', { type: 'blank', nickname: socket.data.user.nickname, msg: 'entered the chat .)' });  
-    
+    socket.broadcast.emit('notification', {
+      type: 'blank',
+      nickname: socket.data.user.nickname,
+      msg: 'entered the chat .)',
+    });
+
     // Handlers
     userHandler(io, socket);
     messageHandler(io, socket);
-    
+
     socket.on('disconnect', () => {
       console.log('Socket disconnetion:', socket.id);
-      socket.broadcast.emit('notification', { type: 'blank', nickname: socket.data.user.nickname, msg: 'left the chat .(' }); 
+      socket.broadcast.emit('notification', {
+        type: 'blank',
+        nickname: socket.data.user.nickname,
+        msg: 'left the chat .(',
+      });
     });
   };
 
@@ -23,14 +31,13 @@ const socketAPI = (io: WebSocketServer) => {
     if (!validToken) return socket.disconnect(true);
 
     let alreadyConnected = false;
-    io.sockets.sockets.forEach(client => {
+    io.sockets.sockets.forEach((client) => {
       if (client.data.user.id === socket.data.user.id) alreadyConnected = true;
     });
 
     if (alreadyConnected) return socket.disconnect(true);
 
     next();
-
   }).on('connection', onConnection);
 };
 

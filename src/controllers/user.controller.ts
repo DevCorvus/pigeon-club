@@ -7,17 +7,16 @@ import { generateJwt } from '../utils/jwt';
 const login = async (req: Request, res: Response) => {
   const userRepository = getRepository(User);
   const { username, password } = req.body;
-  
+
   try {
     const user = await userRepository.findOne({ where: { username } });
     if (!user) return res.status(404).send('User not found');
-    
+
     const validPassword = await validatePassword(password, user.password);
     if (!validPassword) return res.status(401).send('Wrong password');
 
     res.json(generateJwt(user.id));
-
-  } catch(err) {
+  } catch (err) {
     res.sendStatus(500);
   }
 };
@@ -35,13 +34,12 @@ const register = async (req: Request, res: Response) => {
     const newUser = await userRepository.save(user);
 
     res.status(201).json(generateJwt(newUser.id));
-
-  } catch(err) {
+  } catch (err) {
     res.status(409).send('User already exist');
-  } 
+  }
 };
 
 export default {
   login,
-  register
-}
+  register,
+};

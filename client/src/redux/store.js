@@ -5,6 +5,6 @@ import userReducer from './userSlice';
 export const store = configureStore({
   reducer: {
     token: tokenReducer,
-    user: userReducer
-  }
+    user: userReducer,
+  },
 });

@@ -6,7 +6,8 @@ import MessageList from '../components/MessageList';
 import TypingList from '../components/TypingList';
 
 export default function Chat() {
-  const { messages, typing, hasMore, scrollDown, setScrollDown } = useSocketMessages();
+  const { messages, typing, hasMore, scrollDown, setScrollDown } =
+    useSocketMessages();
   const size = useWindowResize();
 
   const styles = {
@@ -15,8 +16,15 @@ export default function Chat() {
   };
 
   return (
-    <div style={styles} className="flex flex-col justify-between p-6 mx-auto max-w-3xl w-full h-full">
-      <MessageList messages={messages} hasMore={hasMore} scrollDown={scrollDown} />
+    <div
+      style={styles}
+      className="flex flex-col justify-between p-6 mx-auto max-w-3xl w-full h-full"
+    >
+      <MessageList
+        messages={messages}
+        hasMore={hasMore}
+        scrollDown={scrollDown}
+      />
       <div>
         <TypingList typing={typing} />
         <CreateMessageForm setScrollDown={setScrollDown} />

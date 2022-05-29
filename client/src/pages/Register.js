@@ -8,9 +8,13 @@ import Box from '../components/Box';
 import Input from '../components/Input';
 
 export default function Register() {
-  const { register, handleSubmit, formState:{ errors } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: joiResolver(userSchema),
-    mode: 'onChange'
+    mode: 'onChange',
   });
 
   const onSubmit = useOnSubmit({ route: 'register' });
@@ -30,14 +34,27 @@ export default function Register() {
         <Input hook={{ register, errors }} name="password" type="password">
           Password
         </Input>
-        <Input hook={{ register, errors }} name="passwordConfirmation" label="Repeat password" type="password">
+        <Input
+          hook={{ register, errors }}
+          name="passwordConfirmation"
+          label="Repeat password"
+          type="password"
+        >
           Repeat your password
         </Input>
         <button className="btn-primary mt-2" type="submit">
           Register
         </button>
       </form>
-      <p className="mt-2">Do you already have an account? <Link to="/login" className="text-indigo-400 hover:text-indigo-500 focus:text-indigo-500">Sign In</Link></p>
+      <p className="mt-2">
+        Do you already have an account?{' '}
+        <Link
+          to="/login"
+          className="text-indigo-400 hover:text-indigo-500 focus:text-indigo-500"
+        >
+          Sign In
+        </Link>
+      </p>
     </Box>
   );
 }
