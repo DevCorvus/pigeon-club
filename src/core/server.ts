@@ -2,10 +2,9 @@ import express from 'express';
 import { Server as WebSocketServer } from 'socket.io';
 import { join as pathJoin } from 'path';
 import http from 'http';
-import { getEnv } from '../config/env';
-
 import helmet from 'helmet';
-import morgan from 'morgan';
+
+import { getEnv } from '../config/env';
 
 import { checkMissingEnv } from '../middlewares/checkMissingEnv';
 import { redirectOverHttps } from '../middlewares/redirectOverHttps';
@@ -14,7 +13,7 @@ import { apiRoutes } from '../routes/api.routes';
 import { indexRoutes } from '../routes/index.routes';
 import { socketAPI } from './socketAPI';
 
-export function initializeServer() {
+export async function initializeServer() {
   const { NODE_ENV, PORT } = getEnv();
 
   // Init
@@ -35,6 +34,7 @@ export function initializeServer() {
     app.use(express.static(pathJoin(__dirname, '../../client/build')));
     app.use(checkMissingEnv(Object.keys(getEnv())));
   } else {
+    const morgan = (await import('morgan')).default;
     app.use(morgan('dev'));
   }
 
