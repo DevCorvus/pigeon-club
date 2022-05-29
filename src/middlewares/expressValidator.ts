@@ -1,4 +1,18 @@
-import { body } from 'express-validator';
+import { Request, Response, NextFunction } from 'express';
+import { body, validationResult } from 'express-validator';
+
+export function rejectOnValidationErrors(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const param = errors.array()[0].param;
+    return res.status(409).send(`Invalid ${param}`);
+  }
+  next();
+}
 
 export const nicknameValidation = body('nickname')
   .not()

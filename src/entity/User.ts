@@ -3,11 +3,10 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
-  ManyToMany,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Message } from './message';
+import { Message } from './Message';
 
 @Entity('users')
 export class User {

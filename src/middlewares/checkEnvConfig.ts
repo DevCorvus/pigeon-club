@@ -1,4 +1,4 @@
-import type { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 const validateEnvConfig = (): boolean => {
   const expectedVars = ['NODE_ENV', 'PORT', 'JWT_SECRET', 'DATABASE_URL'];
@@ -9,12 +9,12 @@ const validateEnvConfig = (): boolean => {
   return matchingVars.length === expectedVars.length;
 };
 
-export const checkEnvConfig = (
+export function checkEnvConfig(
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+) {
   if (!validateEnvConfig())
     return res.status(500).send('Missing environment variables');
   next();
-};
+}

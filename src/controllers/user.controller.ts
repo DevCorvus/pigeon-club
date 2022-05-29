@@ -1,10 +1,12 @@
-import type { Request, Response } from 'express';
+import { Request, Response } from 'express';
+
 import { getRepository } from 'typeorm';
-import { User } from '../entity/user';
+import { User } from '../entity/User';
+
 import { validatePassword, encryptPassword } from '../utils/password';
 import { generateJwt } from '../utils/jwt';
 
-const login = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response) => {
   const userRepository = getRepository(User);
   const { username, password } = req.body;
 
@@ -21,7 +23,7 @@ const login = async (req: Request, res: Response) => {
   }
 };
 
-const register = async (req: Request, res: Response) => {
+export const register = async (req: Request, res: Response) => {
   const userRepository = getRepository(User);
   const { nickname, username, password } = req.body;
 
@@ -37,9 +39,4 @@ const register = async (req: Request, res: Response) => {
   } catch (err) {
     res.status(409).send('User already exist');
   }
-};
-
-export default {
-  login,
-  register,
 };

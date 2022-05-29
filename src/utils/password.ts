@@ -9,5 +9,5 @@ export const validatePassword = async (
   password: string,
   encryptedPassword: string
 ) => {
-  return await bcrypt.compare(password, encryptedPassword);
+  return bcrypt.compare(password, encryptedPassword);
 };

@@ -1,9 +1,9 @@
-import type { Server as WebSocketServer, Socket } from 'socket.io';
-import { verifyJwt } from './utils/jwt';
-import userHandler from './handlers/user';
-import messageHandler from './handlers/message';
+import { Server as WebSocketServer, Socket } from 'socket.io';
+import { userHandler } from '../handlers/user.handler';
+import { messageHandler } from '../handlers/message.handler';
+import { verifyJwt } from '../utils/jwt';
 
-const socketAPI = (io: WebSocketServer) => {
+export function socketAPI(io: WebSocketServer) {
   const onConnection = (socket: Socket) => {
     console.log('Socket connection:', socket.id);
     socket.broadcast.emit('notification', {
@@ -39,6 +39,4 @@ const socketAPI = (io: WebSocketServer) => {
 
     next();
   }).on('connection', onConnection);
-};
-
-export default socketAPI;
+}

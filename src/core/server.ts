@@ -1,21 +1,21 @@
-import type { Connection as TypeOrmConnection } from 'typeorm';
-import { join as pathJoin } from 'path';
 import express from 'express';
 import { Server as WebSocketServer } from 'socket.io';
+import { join as pathJoin } from 'path';
 import http from 'http';
+import { getEnv } from '../config/env';
+
 import helmet from 'helmet';
 import morgan from 'morgan';
-import apiRoutes from '../routes/api';
-import indexRoutes from '../routes/index';
-import socketAPI from '../socketAPI';
+
 import { checkEnvConfig } from '../middlewares/checkEnvConfig';
 import { redirectOverHttps } from '../middlewares/redirectOverHttps';
-import { NODE_ENV, PORT } from './env';
 
-export default function initializeExpressSocketServer(
-  connection: TypeOrmConnection
-) {
-  console.log('Connected to database:', connection.driver.database);
+import { apiRoutes } from '../routes/api.routes';
+import { indexRoutes } from '../routes/index.routes';
+import { socketAPI } from './socketAPI';
+
+export function initializeServer() {
+  const { NODE_ENV, PORT } = getEnv();
 
   // Init
   const app = express();
@@ -34,7 +34,7 @@ export default function initializeExpressSocketServer(
     app.use(redirectOverHttps);
     app.use(express.static(pathJoin(__dirname, '../../client/build')));
     app.use(checkEnvConfig);
-  } else if (NODE_ENV === 'development') {
+  } else {
     app.use(morgan('dev'));
   }
 
@@ -43,8 +43,5 @@ export default function initializeExpressSocketServer(
   app.use(indexRoutes);
   socketAPI(io);
 
-  // Run
-  server.listen(app.get('port'), (): void => {
-    console.log('Server on port', app.get('port'));
-  });
+  return app;
 }

@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import controller from '../controllers/user.controller';
+import * as userController from '../controllers/user.controller';
 import {
   nicknameValidation,
   usernameValidation,
   passwordValidation,
-} from '../middlewares/validationChains';
-import { rejectOnValidationErrors } from '../middlewares/rejectOnValidationErrors';
+  rejectOnValidationErrors,
+} from '../middlewares/expressValidator';
 
 const router = Router();
 
@@ -17,13 +17,13 @@ router.post(
     passwordValidation,
     rejectOnValidationErrors,
   ],
-  controller.register
+  userController.register
 );
 
 router.post(
   '/login',
   [usernameValidation, passwordValidation, rejectOnValidationErrors],
-  controller.login
+  userController.login
 );
 
-export default router;
+export const apiRoutes = router;

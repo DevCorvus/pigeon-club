@@ -1,9 +1,9 @@
-import type { Server as WebSocketServer, Socket } from 'socket.io';
+import { Server as WebSocketServer, Socket } from 'socket.io';
 import { getRepository } from 'typeorm';
-import { Message } from '../entity/message';
-import { validateMessage } from '../utils/validate';
+import { Message } from '../entity/Message';
+import { validateMessage } from '../utils/message';
 
-export default function (io: WebSocketServer, socket: Socket) {
+export function messageHandler(io: WebSocketServer, socket: Socket) {
   const messageRepository = getRepository(Message);
   const { id: userId } = socket.data.user;
 
@@ -43,11 +43,12 @@ export default function (io: WebSocketServer, socket: Socket) {
 
   const create = async (content: string) => {
     const validatedContent = validateMessage(content);
-    if (!validatedContent)
+    if (!validatedContent) {
       return socket.emit('notification', {
         type: 'error',
         msg: 'Message cannot be empty or longer than 2000 characters',
       });
+    }
 
     try {
       const message = new Message();

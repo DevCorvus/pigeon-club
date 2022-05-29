@@ -1,10 +1,13 @@
-import type { Socket } from 'socket.io';
+import { Socket } from 'socket.io';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { getEnv } from '../config/env';
+
 import { getRepository } from 'typeorm';
-import { User } from '../entity/user';
-import { JWT_SECRET } from '../config/env';
+import { User } from '../entity/User';
 
 export const generateJwt = (id: number) => {
+  const { JWT_SECRET } = getEnv();
+
   const payload = {
     sub: id,
     iat: Date.now(),
@@ -15,6 +18,8 @@ export const generateJwt = (id: number) => {
 };
 
 export const verifyJwt = async (socket: Socket) => {
+  const { JWT_SECRET } = getEnv();
+
   const { token } = socket.handshake.auth;
   if (!token) return false;
 

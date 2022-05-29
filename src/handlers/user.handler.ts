@@ -1,8 +1,8 @@
-import type { Server as WebSocketServer, Socket } from 'socket.io';
+import { Server as WebSocketServer, Socket } from 'socket.io';
 import { getRepository } from 'typeorm';
-import { User } from '../entity/user';
+import { User } from '../entity/User';
 
-export default function (io: WebSocketServer, socket: Socket) {
+export function userHandler(io: WebSocketServer, socket: Socket) {
   const userRepository = getRepository(User);
   const { id: userId } = socket.data.user;
 
