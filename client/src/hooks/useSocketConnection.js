@@ -12,7 +12,13 @@ const useSocketConnection = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    setSocketConnection(io({ auth: { token } }));
+    if (process.env.NODE_ENV !== 'production') {
+      setSocketConnection(
+        io(process.env.REACT_APP_LOCALHOST_API, { auth: { token } })
+      );
+    } else {
+      setSocketConnection(io({ auth: { token } }));
+    }
   }, [token]);
 
   useEffect(() => {

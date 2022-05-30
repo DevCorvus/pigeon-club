@@ -8,9 +8,9 @@ import { initializeServer } from './core/server';
   await loadLocalEnvIfRequired();
   await databaseConnection();
 
-  const app = await initializeServer();
+  const { socketServer, app } = await initializeServer();
 
-  app.listen(app.get('port'), () => {
+  socketServer.listen(app.get('port'), () => {
     console.log('Server running on port', app.get('port'));
   });
 })();

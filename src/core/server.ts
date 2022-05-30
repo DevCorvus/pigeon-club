@@ -19,7 +19,7 @@ export async function initializeServer() {
   // Init
   const app = express();
   const server = http.createServer(app);
-  const io = new WebSocketServer(server);
+  let io: WebSocketServer;
 
   // Settings
   app.set('port', Number(PORT));
@@ -29,13 +29,26 @@ export async function initializeServer() {
   app.use(express.json());
 
   if (NODE_ENV === 'production') {
+    io = new WebSocketServer(server);
+
     app.enable('trust proxy');
     app.use(redirectOverHttps);
     app.use(express.static(pathJoin(__dirname, '../../client/build')));
     app.use(checkMissingEnv(Object.keys(getEnv())));
   } else {
+    const corsConfig = {
+      origin: 'http://localhost:3000',
+    };
+
+    io = new WebSocketServer(server, {
+      cors: corsConfig,
+    });
+
     const morgan = (await import('morgan')).default;
     app.use(morgan('dev'));
+
+    const cors = (await import('cors')).default;
+    app.use(cors(corsConfig));
   }
 
   // Routes
@@ -43,5 +56,5 @@ export async function initializeServer() {
   app.use(indexRoutes);
   socketAPI(io);
 
-  return app;
+  return { socketServer: server, app };
 }
