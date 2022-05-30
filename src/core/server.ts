@@ -8,6 +8,10 @@ import { getEnv } from '../config/env';
 
 import { checkMissingEnv } from '../middlewares/checkMissingEnv';
 import { redirectOverHttps } from '../middlewares/redirectOverHttps';
+import {
+  rateLimiter,
+  limitGlobalHttpRequestsPerIp,
+} from '../middlewares/rateLimiter';
 
 import { apiRoutes } from '../routes/api.routes';
 import { indexRoutes } from '../routes/index.routes';
@@ -35,6 +39,7 @@ export async function initializeServer() {
     app.use(redirectOverHttps);
     app.use(express.static(pathJoin(__dirname, '../../client/build')));
     app.use(checkMissingEnv(Object.keys(getEnv())));
+    app.use(rateLimiter(limitGlobalHttpRequestsPerIp));
   } else {
     const corsConfig = {
       origin: 'http://localhost:3000',
