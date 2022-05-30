@@ -2,8 +2,7 @@ import { Socket } from 'socket.io';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { getEnv } from '../config/env';
 
-import { getRepository } from 'typeorm';
-import { User } from '../entity/User';
+import { userRepository } from './database';
 
 export const generateJwt = (id: number) => {
   const { JWT_SECRET } = getEnv();
@@ -24,12 +23,16 @@ export const verifyJwt = async (socket: Socket) => {
   if (!token) return false;
 
   try {
-    const userRepository = getRepository(User);
-
     const payload = jwt.verify(token, JWT_SECRET) as JwtPayload;
 
-    const user = await userRepository.findOne(payload.sub, {
-      select: ['id', 'nickname'],
+    const user = await userRepository.findOne({
+      where: {
+        id: Number(payload.sub),
+      },
+      select: {
+        id: true,
+        nickname: true,
+      },
     });
     if (!user) return false;
 

@@ -1,9 +1,9 @@
-import { ConnectionOptions, createConnection } from 'typeorm';
+import { DataSource, DataSourceOptions } from 'typeorm';
 import { getEnv } from '../config/env';
 import { User } from '../entity/User';
 import { Message } from '../entity/Message';
 
-const databaseConfig = (): ConnectionOptions => {
+const databaseConfig = (): DataSourceOptions => {
   const { NODE_ENV, DATABASE_URL } = getEnv();
 
   if (NODE_ENV === 'production') {
@@ -31,10 +31,11 @@ const databaseConfig = (): ConnectionOptions => {
   };
 };
 
+export const db = new DataSource(databaseConfig());
+
 export async function databaseConnection() {
   try {
-    const config = databaseConfig();
-    const conn = await createConnection(config);
+    const conn = await db.initialize();
     console.log('Connected to database:', conn.driver.database);
   } catch (err) {
     console.error(err);

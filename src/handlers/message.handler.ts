@@ -1,10 +1,11 @@
 import { Server as WebSocketServer, Socket } from 'socket.io';
-import { getRepository } from 'typeorm';
+
 import { Message } from '../entity/Message';
+import { messageRepository } from '../utils/database';
+
 import { validateMessage } from '../utils/message';
 
 export function messageHandler(io: WebSocketServer, socket: Socket) {
-  const messageRepository = getRepository(Message);
   const { id: userId } = socket.data.user;
 
   const getMessages = async (skip: number) => {
@@ -92,7 +93,10 @@ export function messageHandler(io: WebSocketServer, socket: Socket) {
       });
 
     try {
-      const message = await messageRepository.findOne(id, {
+      const message = await messageRepository.findOne({
+        where: {
+          id,
+        },
         loadRelationIds: true,
       });
 
@@ -139,9 +143,13 @@ export function messageHandler(io: WebSocketServer, socket: Socket) {
 
   const destroy = async (id: number) => {
     try {
-      const message = await messageRepository.findOne(id, {
+      const message = await messageRepository.findOne({
+        where: {
+          id,
+        },
         loadRelationIds: true,
       });
+
       if (!message)
         return socket.emit('notification', {
           type: 'error',

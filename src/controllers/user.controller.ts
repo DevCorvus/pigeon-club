@@ -1,17 +1,16 @@
 import { Request, Response } from 'express';
 
-import { getRepository } from 'typeorm';
 import { User } from '../entity/User';
+import { userRepository } from '../utils/database';
 
 import { validatePassword, encryptPassword } from '../utils/password';
 import { generateJwt } from '../utils/jwt';
 
 export const login = async (req: Request, res: Response) => {
-  const userRepository = getRepository(User);
   const { username, password } = req.body;
 
   try {
-    const user = await userRepository.findOne({ where: { username } });
+    const user = await userRepository.findOneBy({ username });
     if (!user) return res.status(404).send('User not found');
 
     const validPassword = await validatePassword(password, user.password);
@@ -24,7 +23,6 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const register = async (req: Request, res: Response) => {
-  const userRepository = getRepository(User);
   const { nickname, username, password } = req.body;
 
   try {

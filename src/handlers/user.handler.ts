@@ -1,9 +1,7 @@
 import { Server as WebSocketServer, Socket } from 'socket.io';
-import { getRepository } from 'typeorm';
-import { User } from '../entity/User';
+import { userRepository } from '../utils/database';
 
 export function userHandler(io: WebSocketServer, socket: Socket) {
-  const userRepository = getRepository(User);
   const { id: userId } = socket.data.user;
 
   // Handlers
@@ -14,7 +12,7 @@ export function userHandler(io: WebSocketServer, socket: Socket) {
 
   const onNickname = async (nickname: string) => {
     try {
-      const user = await userRepository.findOne(userId);
+      const user = await userRepository.findOneBy({ id: userId });
       if (!user)
         return socket.emit('notification', {
           type: 'error',
