@@ -1,7 +1,7 @@
 import React from 'react';
-import useSocketUser from '../hooks/useSocketUser';
 import Chat from '../pages/Chat';
 import Loading from '../components/Loading';
+import useSocketUser from '../hooks/useSocketUser';
 
 export default function User() {
   const done = useSocketUser();

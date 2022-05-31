@@ -9,16 +9,17 @@ const useOnSubmit = ({ route = '' }) => {
 
   const onSubmit = async (data) => {
     try {
+      const API_URL = `${
+        process.env.NODE_ENV !== 'production'
+          ? process.env.REACT_APP_LOCALHOST_API
+          : ''
+      }/api/${route}`;
+
       const {
         data: { token },
-      } = await axios.post(
-        `${
-          process.env.NODE_ENV !== 'production'
-            ? process.env.REACT_APP_LOCALHOST_API
-            : ''
-        }/api/${route}`,
-        data
-      );
+      } = await axios.post(API_URL, data);
+
+      if (!token) throw Error();
 
       dispatch(setToken(token));
       Cookies.set('token', token, { expires: 7 });

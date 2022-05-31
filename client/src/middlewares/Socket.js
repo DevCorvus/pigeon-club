@@ -1,7 +1,7 @@
 import React from 'react';
-import useSocketConnection from '../hooks/useSocketConnection';
-import User from '../middlewares/User';
 import Loading from '../components/Loading';
+import User from '../middlewares/User';
+import useSocketConnection from '../hooks/useSocketConnection';
 
 export default function Socket() {
   const { socket, error } = useSocketConnection();

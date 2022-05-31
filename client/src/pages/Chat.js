@@ -1,9 +1,11 @@
 import React from 'react';
-import useSocketMessages from '../hooks/useSocketMessages';
-import useWindowResize from '../hooks/useWindowResize';
+
 import CreateMessageForm from '../components/CreateMessageForm';
 import MessageList from '../components/MessageList';
 import TypingList from '../components/TypingList';
+
+import useSocketMessages from '../hooks/useSocketMessages';
+import useWindowResize from '../hooks/useWindowResize';
 
 export default function Chat() {
   const { messages, typing, hasMore, scrollDown, setScrollDown } =

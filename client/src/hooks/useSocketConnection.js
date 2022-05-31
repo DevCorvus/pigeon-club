@@ -6,44 +6,32 @@ import { setSocket as setSocketState } from '../socketState';
 
 const useSocketConnection = () => {
   const token = useSelector(getToken);
-  const [socketConnection, setSocketConnection] = useState(null);
   const [socket, setSocket] = useState(false);
-  const [attempts, setAttempts] = useState(1);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (process.env.NODE_ENV !== 'production') {
-      setSocketConnection(
-        io(process.env.REACT_APP_LOCALHOST_API, { auth: { token } })
-      );
-    } else {
-      setSocketConnection(io({ auth: { token } }));
-    }
-  }, [token]);
+    const socketConnection = io(
+      process.env.NODE_ENV !== 'production'
+        ? process.env.REACT_APP_LOCALHOST_API
+        : undefined,
+      { auth: { token } }
+    );
 
-  useEffect(() => {
-    if (socketConnection) {
+    let connectionFailedTimeout;
+
+    socketConnection.on('connect', () => {
+      clearTimeout(connectionFailedTimeout);
       setSocketState(socketConnection);
-      if (socketConnection.disconnected) {
-        setTimeout(() => {
-          if (socketConnection.connected) {
-            setSocket(true);
-          } else {
-            if (attempts === 5) {
-              socketConnection.disconnect();
-              setSocketConnection(null);
-              setSocket(false);
-              return setError(true);
-            }
-            setAttempts((prevNumber) => prevNumber + 1);
-          }
-        }, 1000);
-      } else {
-        setSocketState(socketConnection);
-        setSocket(true);
-      }
-    }
-  }, [socketConnection, attempts]);
+      setSocket(true);
+    });
+
+    connectionFailedTimeout = setTimeout(() => {
+      socketConnection.disconnect();
+      setSocketState(null);
+      setSocket(false);
+      setError(true);
+    }, 5000);
+  }, [token]);
 
   return { socket, error };
 };

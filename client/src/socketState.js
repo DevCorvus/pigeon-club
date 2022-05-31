@@ -1,4 +1,4 @@
-const socketState = (() => {
+const socketState = () => {
   let socket = null;
   return {
     setSocket: (socketConnection) => {
@@ -6,6 +6,6 @@ const socketState = (() => {
     },
     getSocket: () => socket,
   };
-})();
+};
 
-export const { setSocket, getSocket } = socketState;
+export const { setSocket, getSocket } = socketState();
