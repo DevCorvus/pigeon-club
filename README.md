@@ -6,8 +6,6 @@
 
 Simple real-time chat application using Socket.IO with React.js/TailwindCSS and Express.js with TypeScript and TypeORM (Postgres).
 
-**Check it out: https://pigeonclub.herokuapp.com**
-
 The README ends here because I'm too lazy to explain something I already did a long time ago, you're alone in that jungle of code. Thank you for reading! ❤️
 
 ## Context
@@ -22,7 +20,7 @@ I've given myself the task of updating/refactoring some parts of the code to mak
 
 There are still a lot of problems and things that I would definitely do differently, but due to the nature of the project (just to learn) I prefer to keep it as it is and focus on new and interesting challenges.
 
-You can see some more information in the "About" section in the [Pigeon Club live demo](https://pigeonclub.herokuapp.com) by first clicking on the button with an exclamation mark located in the lower left corner of the website.
+You can see some more information in the "About" section.
 
 Now yes, thanks for reading! ❤️
 
