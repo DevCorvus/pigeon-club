@@ -106,20 +106,6 @@ export default function About() {
                   general public, only as a technical test carried out in order
                   to learn and develop my skills.
                 </p>
-                <p>
-                  If you want to contact me in relation to this project or other
-                  reasons, I leave the following means of contact at your
-                  disposal:{' '}
-                  <a
-                    className="text-indigo-400 hover:text-indigo-500 focus:text-indigo-500 transition"
-                    href="https://www.devcorvus.com/contact"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    DevCorvus Contact page (My personal website)
-                  </a>
-                  .
-                </p>
                 <p>Thank you for reading! .) ♥</p>
               </section>
               <button
